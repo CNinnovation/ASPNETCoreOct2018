@@ -13,6 +13,8 @@ namespace ConfigurationSample
             ReadConfiguration();
             ReadConnectionString();
             ReadSecret();
+
+
         }
 
         private static void ReadSecret()
@@ -43,6 +45,8 @@ namespace ConfigurationSample
                 .AddCommandLine(args)
 #if DEBUG
                 .AddUserSecrets("7E6644FB-DEEF-4B7B-BE2E-12D905294543")
+#else
+                .AddAzureKeyVault("vault-id")
 #endif
                 .Build();
             Configuration = config;
