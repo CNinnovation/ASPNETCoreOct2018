@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -36,8 +38,35 @@ namespace MyFirstASPNETCoreApp
             // Middleware
             app.UseStaticFiles();
 
+            app.Map("/echo", app1 =>
+            {
+                app1.Run(async context =>
+                {
+                    var x = context.Request.Query["hello"];
+                   // x = HtmlEncoder.Default.Encode(x);
+                    await context.Response.WriteAsync(x);
+                });
+            });
+
+            app.MapWhen(context => context.Request.Path.Value.Contains("bar"), app1 =>
+            {
+                app1.Run(async context =>
+                {
+                    await context.Response.WriteAsync($"<h1>bar in path</h1> <div>path: {context.Request.Path}/div>");
+                });
+            });
+
+            app.Map("/foo", app1 =>
+            {
+                app1.Run(async context =>
+                {
+                    await context.Response.WriteAsync($"<h1>Foo invoked</h1> <div>path: {context.Request.Path}/div>");
+                });
+            });
+
             app.Run(async (context) =>
             {
+              
                 await context.Response.WriteAsync("<h1>Hello World!</h1>");
             });
         }
