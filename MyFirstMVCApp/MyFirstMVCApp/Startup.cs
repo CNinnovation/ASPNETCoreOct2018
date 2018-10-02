@@ -19,6 +19,7 @@ namespace MyFirstMVCApp
             services.AddMvc();
 
             services.AddTransient<IMathService, MathService>();
+            services.AddTransient<IBooksService, BooksService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -29,13 +30,20 @@ namespace MyFirstMVCApp
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseStaticFiles();
+
             // app.UseMvcWithDefaultRoute();
             app.UseMvc(route =>
             {
-                route.MapRoute("default", "{controller}/{action}/{id?}", defaults: new { controller="Home", action="Index" });
+                route.MapRoute(
+                    "default", 
+                    "{controller}/{action}/{id?}", 
+                    defaults: new { controller="Home", action="Index" });
 
 
-                route.MapRoute("math", "/math/{controller}/{action}/{x?}/{y?}");
+                route.MapRoute(
+                    "math", 
+                    "/math/{controller}/{action}/{x?}/{y?}");
             });
 
             app.Run(async (context) =>

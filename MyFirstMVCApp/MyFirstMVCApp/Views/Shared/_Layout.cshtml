@@ -1,0 +1,19 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+
+    @RenderSection("headsection", required: false)
+    <title>_Layout</title>
+</head>
+<body>
+    @RenderSection("top", required: false)
+
+    <div>menu</div>
+
+    @RenderBody()
+
+    <div>copyright info</div>
+</body>
+</html>

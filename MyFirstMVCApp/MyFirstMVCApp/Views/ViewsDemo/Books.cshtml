@@ -1,0 +1,27 @@
+﻿@model IEnumerable<Book>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Books</title>
+</head>
+<body>
+
+    @{ 
+        // Razor block
+    }
+
+    @foreach (var book in Model)
+    {
+        <div>@book.Title.ToUpper()</div>
+        <div>@book.Publisher</div>
+    }
+
+    
+</body>
+</html>

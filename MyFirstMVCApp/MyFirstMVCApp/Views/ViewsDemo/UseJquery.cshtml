@@ -1,0 +1,23 @@
+﻿
+@{
+    ViewData["Title"] = "UseJquery";
+}
+
+<script src="/lib/jquery/jquery.js"></script>
+
+<script>
+    $(function () {
+        $("#button1").click(function () {
+            $("#output").load("/ViewsDemo/MyPartialView");
+        });
+    });
+</script>
+
+<h2>UseJquery</h2>
+
+<div>This is the jquery view</div>
+
+<button id="button1">Click me!</button>
+
+<div id="output"></div>
+
