@@ -10,8 +10,10 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MyFirstASPNETCoreApp.Middleware;
+using MyFirstASPNETCoreApp.Models;
 using MyFirstASPNETCoreApp.MyControllers;
 using MyFirstASPNETCoreApp.Services;
+using Newtonsoft.Json;
 
 namespace MyFirstASPNETCoreApp
 {
@@ -56,6 +58,18 @@ namespace MyFirstASPNETCoreApp
                 });
             });
 
+            app.Map("/json", app1 =>
+            {
+                app1.Run(async context =>
+                {
+                    var book = new Book { Isbn = "37843743", Title = "Professional C# 8", Publisher = "Wrox Press" };
+
+                    string json = JsonConvert.SerializeObject(book);
+
+                    await context.Response.WriteAsync(json);
+                });
+            });
+
             app.Map("/mycontroller", app1 =>
             {
                 app1.Run(async context =>
@@ -65,7 +79,6 @@ namespace MyFirstASPNETCoreApp
                     string result = controller.Index(name);
                     await context.Response.WriteAsync(result);
                 });
-
             });
 
             app.Map("/echo", app1 =>
